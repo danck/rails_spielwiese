@@ -1,4 +1,13 @@
 <% provide(:title, 'Home') %>
 
-	<h1>Home</h1>
-	<p>Mighty Sample</p>
+<div class="center hero-unit">
+	<h1>Willkommen bei Home</h1>
+	<h2>
+		Das hier ist
+		<a href="https://julaya.de">Hero-Unit!</a>
+	</h2>
+
+	<%= link_to "Jetzt Anmelden", '#', class: "btn btn-large btn-primary" %>
+</div>
+<p>Mighty Sample</p>
+<%= link_to image_tag("bild1.jpg", alt: "Rails"), 'http://julaya.de' %>
