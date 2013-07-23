@@ -1,4 +1,5 @@
 require 'spec_helper'
+require './spec/requests/shared_static_pages.rb'
 
 describe "Static Pages" do
 	describe "Home page" do
@@ -9,7 +10,7 @@ describe "Static Pages" do
 
 		it "should have the correct title" do
 			visit '/static_pages/home'
-			expect(page).to have_title("Fruchtfabrik | Home")
+			expect(page).to have_title("#{@site_title_prefix}Home")
 		end
 	end
 
@@ -21,7 +22,7 @@ describe "Static Pages" do
 
 		it "should have the correct title" do
 			visit '/static_pages/help'
-			expect(page).to have_title("Fruchtfabrik | Help")
+			expect(page).to have_title("#{@site_title_prefix}Help")
 		end
 	end
 
@@ -33,7 +34,19 @@ describe "Static Pages" do
 
 		it "should have the correct title" do
 			visit '/static_pages/about'
-			expect(page).to have_title("Fruchtfabrik | About")
+			expect(page).to have_title("#{@site_title_prefix}About")
+		end
+	end
+
+		describe "Contact Page" do
+		it "should have the content 'About us'" do
+			visit '/static_pages/contact'
+			expect(page).to have_content('Contact Us')
+		end
+
+		it "should have the correct title" do
+			visit '/static_pages/contact'
+			expect(page).to have_title("#{@site_title_prefix}Contact")
 		end
 	end
 end
