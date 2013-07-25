@@ -4,6 +4,14 @@ require './spec/requests/shared_static_pages.rb'
 describe "Static Pages" do
 	subject { page }
 
+	it "SHould have the right links in the root Layout" do
+		visit root_path
+		click_link "About"
+		expect(page).to have_title(full_title('About'))
+		click_link "Help"
+		expect(page).to have_title(full_title('Help'))
+	end
+
 	describe "Home page" do
 		before { visit root_path }
 
@@ -29,7 +37,7 @@ describe "Static Pages" do
 		describe "Contact Page" do
 		before { visit contact_path }
 
-		it { should have_content 'Contact' }
+		it { should have_selector 'h1', text: 'Contact' }
 		it { should have_title "#{@site_title_prefix}Contact" }
 	end
 end
