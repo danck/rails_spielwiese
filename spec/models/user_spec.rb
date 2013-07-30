@@ -8,12 +8,14 @@ describe User do
 
   it { should respond_to(:name) }
   it { should respond_to(:email) }
+  it { should respond_to(:password_digest) }
 
   it { should be_valid }
 
   describe "when email already taken" do
   	before do
   		user_with_dublette_email = @user.dup
+      user_with_dublette_email.attributes = { email: @user.email.upcase }
   		user_with_dublette_email.save
   	end
 
@@ -30,6 +32,17 @@ describe User do
   	before { @user.update_attributes name: "Harald Test", email: " "}
 
   	it { should be_invalid }
+  end
+
+  describe "when user email is saved with upcase letters" do
+    before do 
+      @user.attributes = { email: "CAPITAL@CASE.COM" }
+      @user.save
+    end
+
+    it "should have only downcase letters" do
+      @user.email.should eq "capital@case.com"
+    end
   end
 
   describe "when email address is valid" do
