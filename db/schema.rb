@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20130730233215) do
 
-  create_table "pflegeanbieters", force: true do |t|
-    t.string   "name"
-    t.integer  "bewertung"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
