@@ -63,6 +63,10 @@ describe User do
     it "should have only downcase letters" do
       @user.email.should eq "capital@case.com"
     end
+
+    it "should have only downcase after being reloaded from db" do
+      @user.reload.email.should eq "capital@case.com"
+    end
   end
 
   describe "when email address is valid" do
@@ -77,10 +81,10 @@ describe User do
   	end
   end
 
-  describe "when email is nonsense" do
+  describe "when email is invalid" do
   	it "should be invalid" do
   		addresses = %w[bla@foo,com bla_at_foo.com bla@foo. foo@bl_a.com
-  			foo@foo+bla.jp]
+  			foo@foo+bla.jp not@valid..com]
   		addresses.each do |invalid_address|
   			@user.email = invalid_address
   			expect(@user).to be_invalid
