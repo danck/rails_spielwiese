@@ -38,6 +38,7 @@ end
 
 group :development, :test do
 	gem 'rspec-rails', '2.13.1'
+	gem 'therubyracer', platforms: :ruby
 end
 
 group :test do
