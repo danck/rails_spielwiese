@@ -7,7 +7,9 @@
 		<a href="https://julaya.de">Hero-Unit! Hallo branane</a>
 	</h2>
 
-	<%= link_to "Jetzt Anmelden", signup_path, class: "btn btn-large btn-primary" %>
+	<% if !signed_in? %>
+		<%= link_to "Jetzt Anmelden", signup_path, class: "btn btn-large btn-primary" %>
+	<% end %>
 </div>
 <p>Mighty Sample</p>
 <%= link_to image_tag("bild1.jpg", alt: "Rails"), 'http://julaya.de' %>
