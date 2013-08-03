@@ -18,6 +18,10 @@ describe "UserPages" do
 	    		final = User.count
 	    		expect(initial).to eq final
 	    	end
+	    	describe "after submission" do
+	    		#before { click_button submit }
+		    	it { click_button submit; should have_content "error" }
+	    	end
 	    end
 
 	    describe "with valid information" do
