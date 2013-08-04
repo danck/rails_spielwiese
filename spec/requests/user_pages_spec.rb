@@ -39,7 +39,7 @@ describe "UserPages" do
 
 	    	describe "after saving a user" do
 	    		before { click_button submit }
-	    		let(:user) { User.find_by(email: 'user@example.com') }
+	    		let(:user) { User.find_by(email: "user@example.com") }
 
 	    		it { should have_link 'Sign out'}
 	    		it { should have_title user.name }
@@ -55,7 +55,10 @@ describe "UserPages" do
 
 	describe "edit" do
 		let(:user) { FactoryGirl.create(:user) }
-		before { visit edit_user_path(user) }
+		before {
+			sign_in user 
+			visit edit_user_path(user) 
+		}
 
 		describe "page" do
 			it { should have_content "Update your profile" }
@@ -68,13 +71,31 @@ describe "UserPages" do
 
 			it { should have_content 'error' }
 		end
+
+		describe "with valid information" do
+			let(:new_name) { "new name" }
+			let(:new_email) { "new@example.com" }
+			before do
+				fill_in "Name", 		with: new_name
+				fill_in "Email",		with: new_email
+				fill_in "Password",		with: user.password
+				fill_in "Confirm Password", with: user.password
+				click_button "Save changes"
+			end
+
+			it { should have_title new_name }
+			it { should have_selector 'div.alert.alert-success' }
+			it { should have_link('Sign out', href: signout_path) }
+			it { expect(user.reload.name).to eq new_name }
+			it { expect(user.reload.email).to eq new_email }
+		end
 	end
 
 	describe "profile_page" do
-		let(:user) { FactoryGirl.create(:user) }
-		before { visit user_path(user) }
+		let(:user2) { FactoryGirl.create(:user2) }
+		before { visit user_path(user2) }
 
-		it { should have_content(user.name) }
-		it { should have_title(user.name) }
+		it { should have_content(user2.name) }
+		it { should have_title(user2.name) }
 	end
 end

@@ -1,11 +1,13 @@
 <% provide(:title, 'Home') %>
 
-<div class="center hero-unit">
+ <div class="center hero-unit">
 	<h1>Willkommen bei Home</h1>
 	<h2>
 		Das hier ist
 		<a href="https://julaya.de">Hero-Unit! Hallo branane</a>
 	</h2>
+
+
 
 	<% if !signed_in? %>
 		<%= link_to "Jetzt Anmelden", signup_path, class: "btn btn-large btn-primary" %>

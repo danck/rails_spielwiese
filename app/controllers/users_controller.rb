@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
 	include SessionsHelper
 
+	before_action :signed_in_user, 	only: [:edit, :update]
+	before_action :fitting_user,	only: [:edit, :update]
+
 	def show
-		#@user = User.find_by(id: params[:id])
-		@user = current_user
+		@user = User.find(params[:id])
+		#@user = current_user
 	end
 
 	def new
@@ -22,14 +25,13 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		@user = User.find(params[:id])
+		#@user = User.find(params[:id])
 	end
 
 	def update
-		@user = User.find(params[:id])
 		if @user.update_attributes(user_params)
-			@user.save
 			flash[:success] = "User information updated"
+			sign_in @user
 			redirect_to @user
 		else
 			render 'edit'
@@ -41,5 +43,23 @@ class UsersController < ApplicationController
 		def user_params
 			params.require(:user).permit(
 				:name, :email, :password, :password_confirmation)
+		end
+
+		# Before filters
+
+		def signed_in_user
+			unless signed_in?
+				store_location
+				redirect_to signin_url, notice: "Please sign in" 
+			end
+		end
+
+		def fitting_user
+			@user = User.find(params[:id])
+
+			if not current_user?(@user)
+				flash[:error] = "Boese!"
+				redirect_to root_url
+			end
 		end
 end

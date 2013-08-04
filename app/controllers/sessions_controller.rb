@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 	def destroy
 		sign_out
 		flash.now[:success] = "Successfully signed out"
-		redirect_to :back
+		redirect_to root_url
 		# Eigentlich: redirect_to root_url
 	end
 end
