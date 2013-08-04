@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	include SessionsHelper
 
-	before_action :signed_in_user, 	only: [:edit, :update]
+	before_action :signed_in_user, 	only: [:edit, :update, :index]
 	before_action :fitting_user,	only: [:edit, :update]
 
 	def show
@@ -36,6 +36,10 @@ class UsersController < ApplicationController
 		else
 			render 'edit'
 		end
+	end
+
+	def index
+		@users = User.paginate(page: params[:page]).per_page(10)
 	end
 
 	private
