@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 	def destroy
 		sign_out
 		flash.now[:success] = "Successfully signed out"
-		render 'static_pages/home'
+		redirect_to :back
 		# Eigentlich: redirect_to root_url
 	end
 end
