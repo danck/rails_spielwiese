@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
 	before_action :signed_in_user, 	only: [:edit, :update, :index]
 	before_action :fitting_user,	only: [:edit, :update]
+	before_action :is_admin,		only: [:destroy]
 
 	def show
 		@user = User.find(params[:id])
@@ -38,6 +39,12 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def destroy
+		User.find(params[:id]).destroy
+		flash[:success] = "User destroyed"
+		redirect_to users_url
+	end
+
 	def index
 		@users = User.paginate(page: params[:page]).per_page(10)
 	end
@@ -65,5 +72,14 @@ class UsersController < ApplicationController
 				flash[:error] = "Boese!"
 				redirect_to root_url
 			end
+		end
+
+		def is_admin
+			unless current_user.admin?
+				flash[:error] = "boese boese"
+				redirect_to root_url
+			end
+
+			redirect_to root_url if @user == current_user
 		end
 end

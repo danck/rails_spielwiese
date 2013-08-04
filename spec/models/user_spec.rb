@@ -28,6 +28,16 @@ describe User do
     it { should be_admin }
   end
 
+  describe "when user is not admin" do
+    before { @user.save! }
+
+    before { sign_in @user, no_capybara: true }
+    before { patch user_path(@user), admin: true }
+    #it "fails to edit their admin status" do
+     #   expect(response).to redirect_to root_url
+    #end
+  end
+
   describe "when password fields are not matching" do
     before do
       @user = User.new(name: "Hans Test", email: "valid@valid.com",
