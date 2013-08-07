@@ -15,8 +15,23 @@ describe "Static Pages" do
 	describe "Home page" do
 		before { visit root_path }
 
-		it { should have_title full_title '' } # utiliy methode aus support/utilities.rb
+		it { should have_title full_title '' } # utility methode aus support/utilities.rb
 
+		describe "for signed in users" do
+			let(:user) { FactoryGirl.create(:user) }
+			before do
+				FactoryGirl.create(:micropost, user: user, content: "Lorem ipselei")
+				FactoryGirl.create(:micropost, user: user, content: "Ipselum Leerum")
+				sign_in user
+				visit root_path
+			end
+
+			it "should render the user's feed" do
+				user.feed.each do |item|
+					expect(page).to have_content(item.content)
+				end
+			end
+		end
 	end
 
 	describe "Help Page" do

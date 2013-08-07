@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
 
 	has_secure_password
 
+	def feed
+		Micropost.where("user_id = ?", id).order("created_at DESC")
+	end
+
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64
 	end
@@ -25,7 +29,6 @@ class User < ActiveRecord::Base
 	def User.encrypt(token)
 		Digest::SHA1.hexdigest(token.to_s)
 	end
-
 
 	private
 
