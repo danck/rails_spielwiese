@@ -1,17 +1,23 @@
 <% provide(:title, 'Home') %>
+	<% if signed_in? %>
+		<div class="row">
+			<aside class="span4">
+				<section>
+					<%= render 'shared/user_info' %>
+				</section>
+				<section>
+					<%= render 'shared/micropost_form' %>
+				</section>
+			</aside>
+		</div>
+	<% else %>
+		 <div class="center hero-unit">
+			<h1>Willkommen bei Home</h1>
+			<h2>
+				Das hier ist
+				<a href="https://julaya.de">Hero-Unit! Hallo branane</a>
+				<%= link_to "Jetzt Anmelden", signup_path, class: "btn btn-large btn-primary" %>
 
- <div class="center hero-unit">
-	<h1>Willkommen bei Home</h1>
-	<h2>
-		Das hier ist
-		<a href="https://julaya.de">Hero-Unit! Hallo branane</a>
-	</h2>
-
-
-
-	<% if !signed_in? %>
-		<%= link_to "Jetzt Anmelden", signup_path, class: "btn btn-large btn-primary" %>
+			</h2>
+		</div>
 	<% end %>
-</div>
-<p>Mighty Sample</p>
-<%= link_to image_tag("bild1.jpg", alt: "Rails"), 'http://julaya.de' %>

@@ -18,4 +18,14 @@ describe Micropost do
   	before { @micropost.user = nil }
   	it { should_not be_valid }
   end
+
+  describe "when content is missing" do
+  	before { @micropost.content = nil }
+  	it { should_not be_valid }
+  end
+
+  describe "when content is too long" do
+  	before { @micropost.content = "a"*141 }
+  	it { should_not be_valid }
+  end
 end

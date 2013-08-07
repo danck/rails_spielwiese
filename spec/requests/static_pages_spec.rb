@@ -15,7 +15,6 @@ describe "Static Pages" do
 	describe "Home page" do
 		before { visit root_path }
 
-		it { should have_content 'Mighty Sample' }
 		it { should have_title full_title '' } # utiliy methode aus support/utilities.rb
 
 	end

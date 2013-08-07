@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe User do
 
-  before { @user = User.new(name: "Harald Test", email: "user@example.com",
-  password: "foobar", password_confirmation: "foobar") }
+  before { @user = User.new(  name: "test", 
+                              email: "test@test.t", 
+                              password: "testtest", 
+                              password_confirmation: "testtest") }
 
   subject { @user }
 
@@ -141,4 +143,36 @@ describe User do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
+
+  describe "micropost associations" do
+    before { @user.save }
+
+    let!(:newer_micropost) do
+      FactoryGirl.create( :micropost, user: @user, created_at: 2.days.ago )
+    end
+    let!(:older_micropost) do
+      FactoryGirl.create( :micropost, user: @user, created_at: 5.days.ago )
+    end
+
+    it do
+      expect( @user.microposts.order("created_at DESC").to_a ).to eq [newer_micropost, older_micropost]
+    end
+  end
+
+  describe "its microposts" do
+    before do 
+      @user.save
+      FactoryGirl.create( :micropost, user: @user, created_at: 5.days.ago )
+      @old_posts = @user.microposts.to_a
+      @user.destroy
+    end
+
+    it do
+      @old_posts.each do |post|
+        # expect(Micropost.find(post.id)).to raise_error(ActiveRecord::RecordNotFound)
+        expect(Micropost.where(id: post.id)).to be_empty
+      end
+    end
+  end
+
 end
