@@ -31,6 +31,8 @@ describe "Static Pages" do
 					expect(page).to have_content(item.content)
 				end
 			end
+
+			it { should have_content user.microposts.count.to_s + " posts" }
 		end
 	end
 
