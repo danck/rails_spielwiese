@@ -19,6 +19,7 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:microposts) }
   it { should respond_to(:feed) }
+  it { should respond_to(:relationships)}
 
 
   it { should be_valid }
@@ -186,4 +187,24 @@ describe User do
     end
   end
 
+  describe "relations" do
+    let(:follower) { FactoryGirl.create(:user) }
+    let(:followed) { FactoryGirl.create(:user) }
+
+    before do
+      follower.relationships.build(followed_id: followed.id).save
+    end
+
+    describe "has a followed after following" do
+      specify do
+        expect(follower.relationships.count).to eq 1
+      end
+    end
+
+    describe "has a follower after being followed" do
+      specify do 
+        expect(follower.relationships.count).to eq 1
+      end
+    end
+  end
 end

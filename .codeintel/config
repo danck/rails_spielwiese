@@ -1,0 +1,17 @@
+{
+    "JavaScript": {
+        "javascriptExtraPaths": []
+    },
+    "Perl": {
+        "perl": "/usr/bin/perl",
+        "perlExtraPaths": []
+    },
+    "Ruby": {
+        "ruby": "/home/dano/.rvm/rubies/ruby-2.0.0-p247/bin/ruby",
+        "rubyExtraPaths": []
+    },
+    "Python": {
+        "python": '/usr/bin/python',
+        "pythonExtraPaths": []
+    },
+}

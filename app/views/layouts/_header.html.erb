@@ -1,7 +1,7 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-      <%= link_to "sample app" + signed_in?.to_s, root_path, id: "logo" -%>
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+              <%= link_to "Fruchtfabrik", root_path, id: "logo" -%>
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
@@ -26,6 +26,6 @@
           <% end %>
         </ul>
       </nav>
+        </div>
+      </div>
     </div>
-  </div>
-</header>
